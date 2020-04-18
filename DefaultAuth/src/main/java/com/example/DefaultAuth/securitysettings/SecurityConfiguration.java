@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         auth.authenticationProvider(this.authenticationProvider());
     }
 
+    // TODO add new endpoints
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()

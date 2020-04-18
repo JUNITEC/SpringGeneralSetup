@@ -15,10 +15,12 @@ public class LoginService implements UserDetailsService{
     @Autowired
     PasswordEncoder passEncoder;
 
+    //TODO replace with actual database connection
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
             UserType res = new UserType("abcd1234",passEncoder.encode("abcd1234"));
             return res;
+
     }
 
 }
