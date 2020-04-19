@@ -2,7 +2,6 @@ package com.example.DefaultAuth.controller;
 
 import com.example.DefaultAuth.models.usertype.UserType;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,12 +28,7 @@ public class LoginController {
 
     @PutMapping("login/logout")
     public void logoutAccount(HttpServletResponse response){
-        Cookie cookie = new Cookie("sessionToken","");
-        cookie.setHttpOnly(true);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
 
-        response.addCookie(cookie);
     }
 
 }
