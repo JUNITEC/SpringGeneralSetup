@@ -9,10 +9,8 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 /**
  * 
- * Filter responsible for the logout of the system. This filter has to do two
- * things: -> unset the token so the client does not possess the token anymore
- * -> remove the JWT from the system
- * 
+ * Handler responsible for unsetting the cookie for logout
+ * It removes the cookie from the client 
  */
 
 public class JwtLogoutHandler implements LogoutHandler {
