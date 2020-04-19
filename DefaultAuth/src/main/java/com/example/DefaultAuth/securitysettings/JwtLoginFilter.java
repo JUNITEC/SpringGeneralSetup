@@ -73,6 +73,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter{
 
         Cookie cookie = new Cookie("sessionToken",jwt.getJwt());
         cookie.setHttpOnly(true);
+        //cookie.setSecure(true);  //TODO uncomment this section so it remains secure if the https is being used
         cookie.setMaxAge(7 * 24 * 60 * 60);
         cookie.setPath("/");
 

@@ -6,6 +6,7 @@ import com.example.DefaultAuth.service.LoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,6 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .disable()
             .addFilter(new JwtRequestFilter(this.authenticationManager(),this.loginService,this.jwtToken))
             .addFilter(new JwtLoginFilter(this.authenticationManager(),"/login/authenticate",this.jwtToken))
+            .logout().logoutUrl("/login/logout").addLogoutHandler(new JwtLogoutHandler())
+            .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))).and()
             .authorizeRequests()
             .antMatchers("/login/authenticate").permitAll()
             .anyRequest()
