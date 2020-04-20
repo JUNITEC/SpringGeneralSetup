@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .addFilter(new JwtRequestFilter(this.authenticationManager(),this.loginService,this.jwtToken))
             .addFilter(new JwtLoginFilter(this.authenticationManager(),"/login/authenticate",this.jwtToken))
             .logout().logoutUrl("/login/logout").addLogoutHandler(new JwtLogoutHandler())
-            .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))).and()
+            .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).and()
             .authorizeRequests()
             .antMatchers("/login/authenticate").permitAll()
             .anyRequest()
