@@ -1,4 +1,4 @@
-package com.example.DefaultAuth.models.usertype;
+package com.example.DefaultMicroAuth.models.usertype;
 
 import java.util.ArrayList;
 import java.util.Collection;

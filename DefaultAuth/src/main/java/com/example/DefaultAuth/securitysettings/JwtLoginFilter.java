@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.example.DefaultAuth.models.jwt.JwtHolder;
 import com.example.DefaultAuth.models.usertype.UserType;
 
@@ -30,28 +30,45 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter{
 
     private JwtUtil jwtTokenUtil;
 
+    /**
+     * Throwable in case it is unable to fetch information for authentication
+     */
+    private class FailedToFetchDataException extends AuthenticationException{
+
+        public FailedToFetchDataException(String msg) {
+            super(msg);
+        }
+        
+    }
+
     public JwtLoginFilter(AuthenticationManager authManager, String url, JwtUtil jwt){
         this.authenticationManager = authManager;
         this.setFilterProcessesUrl(url);
         this.jwtTokenUtil = jwt;
     }
 
+    
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
         UserType user = null;
+        UsernamePasswordAuthenticationToken authenticationToken;
         try{
             user = new ObjectMapper().readValue(request.getInputStream(), UserType.class);
         }
         catch(IOException e){
-            e.printStackTrace();
+            throw new FailedToFetchDataException("unable to fetch information");
         }
 
-        UsernamePasswordAuthenticationToken authenticationToken = 
-            new UsernamePasswordAuthenticationToken(user.getUsername(), 
-                                                    user.getPassword(), 
-                                                    new ArrayList<>());
-        
+        try{
+            authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), 
+                                                        user.getPassword(), 
+                                                        new ArrayList<>());
+        }
+        catch (NullPointerException e){
+            throw new FailedToFetchDataException("unable to fetch information");
+        }
         return this.authenticationManager.authenticate(authenticationToken);
     }
 

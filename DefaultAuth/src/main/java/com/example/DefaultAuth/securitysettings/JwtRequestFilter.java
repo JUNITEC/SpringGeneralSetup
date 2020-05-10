@@ -60,7 +60,7 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
                     userDetails, null, userDetails.getAuthorities());
                 usernamePassAuthToken
                     .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePassAuthToken); 
+                SecurityContextHolder.getContext().setAuthentication(usernamePassAuthToken);
             }
         }
         filterChain.doFilter(request,response);

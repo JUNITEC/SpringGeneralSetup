@@ -1,4 +1,4 @@
-package com.example.DefaultAuth.controller;
+package com.example.DefaultMicroAuth.controller;
 
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;

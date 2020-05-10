@@ -1,4 +1,4 @@
-package com.example.DefaultAuth;
+package com.example.DefaultMicroAuth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @SpringBootApplication
 @EnableAuthorizationServer
-public class DefaultAuthServerApplication {
+public class DefaultMicroAuthServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DefaultAuthServerApplication.class, args);
+		SpringApplication.run(DefaultMicroAuthServerApplication.class, args);
 	}
 
 }
